@@ -1,0 +1,32 @@
+{% extends 'app/base.html' %}
+{% block contenido %}
+<div class="container mt-5">
+    <h2>Fallos Reportados</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Descripción</th>
+                <th>Categoría</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fallo in fallos %}
+            <tr>
+                <td>{{ fallo.titulo }}</td>
+                <td>{{ fallo.descripcion }}</td>
+                <td>{{ fallo.categoria }}</td>
+                <td>{{ fallo.fecha_creacion }}</td>
+                <td>{{ fallo.estado }}</td>
+                <td>
+                    <a href="{% url 'eliminar_fallo' fallo.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

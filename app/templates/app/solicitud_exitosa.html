@@ -1,0 +1,36 @@
+{% extends 'app/base.html' %}
+{% block contenido %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+    <header class="my-4">
+        <h1 style="color: #eedc76fb;" style=" text-align: center;">FerreMaX</h1>
+    </header>
+</div>    
+<div class="container col-3"></div>
+
+<div class="container col-6">
+    <div class="card">
+        <div class="card-header">
+          FerreMaX
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Solicitud Exitosa</h5>
+          {% if user.is_authenticated %}
+             {% if user.tipo_de_cuenta == 'cliente' %}
+          <p class="card-text">Estimado {{ user.tipo_de_cuenta }} tu solicitud ha sido enviada correctamente, ¡Gracias! agregaremos tu solicitud muy pronto.</p>
+          {% endif %}
+                {% endif %}
+          <a href="{% url 'product_list' %}" class="btn btn-primary">Comprar</a>
+        </div>
+      </div>
+   
+</div>
+
+<div class="container col-3"></div>
+
+
+{% endblock %}

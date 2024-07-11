@@ -1,0 +1,39 @@
+{% extends "app/base.html" %}
+
+{% block contenido %}
+<div class="container">
+    <h1>Gestionar Deliveries</h1>
+    {% if orders %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Número de Pedido</th>
+                    <th>Estado del Delivery</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.order_number }}</td>
+                    <td>{{ order.delivery_status }}</td>
+                    <td>
+                        <form method="post" action="{% url 'update_delivery_status' order.id %}">
+                            {% csrf_token %}
+                            <select name="delivery_status">
+                                <option value="Verificando" {% if order.delivery_status == 'Verificando' %}selected{% endif %}>Verificando</option>
+                                <option value="Enviado" {% if order.delivery_status == 'Enviado' %}selected{% endif %}>Enviado</option>
+                                <option value="Completado" {% if order.delivery_status == 'Completado' %}selected{% endif %}>Completado</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary">Actualizar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No hay órdenes en delivery.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'app/base.html' %}
+{% block contenido %}
+<br>
+<br>
+<br><hr>
+<h2 class="card-title">Solicitudes de Relleno de Stock</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Cantidad Necesaria</th>
+            <th>Fecha de Solicitud</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for request in requests %}
+            <tr>
+                <td>{{ request.producto.Producto }}</td>
+                <td>{{ request.cantidad_necesaria }}</td>
+                <td>{{ request.fecha_solicitud }}</td>
+                <td>
+                    <form method="post" action="{% url 'delete_stock_request' request.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success btn-sm">Ya Realizada</button>
+                    </form>
+                    <a href="{% url 'edit_stock' request.producto.id %}" class="btn btn-warning btn-sm">Modificar Stock</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

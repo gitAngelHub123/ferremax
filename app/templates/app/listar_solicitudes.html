@@ -1,0 +1,53 @@
+{% extends "app/base.html" %}
+{% block contenido %}
+<br>
+<br>
+<br>
+<br>
+<br>
+  <div class="container">
+    <header class="my-4">
+        <h1 style="color: #eedc76fb;" style=" text-align: center;">FerreMaX</h1>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="container-col-2"></div>
+            
+          <div class="col-8">
+            <table class="table table-dark mx-auto">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Solicitud</th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Acciones</th>
+                    <th scope="col">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for solicitud in solicitudes %}
+                  <tr>
+                    <th scope="row">{{ solicitud.numeroSolicitud }}</th>
+                    <td>{{ solicitud.solicitud }}</td>
+                    <td>{{ solicitud.nombreUsuario }}</td>
+                    <td>
+                      <form action="{% url 'eliminar_solicitud' solicitud.numeroSolicitud %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                      </form>
+                      
+                    </td>
+                    <td>
+                      <a href="{% url 'post-list' %}" class="btn btn-success btn-sm">Agregar Producto</a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+          <div class="container-col-2"></div>
+        </div>
+      </div>
+    
+</div>
+{% endblock %}
+

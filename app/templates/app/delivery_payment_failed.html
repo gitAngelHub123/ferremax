@@ -1,0 +1,9 @@
+{% extends "app/base.html" %}
+
+{% block contenido %}
+<div class="container">
+    <h1>Pago de Delivery Fallido</h1>
+    <p>Lo sentimos, hubo un problema con su pago de delivery. Por favor, intente nuevamente.</p>
+    <a href="{% url 'order_list' %}" class="btn btn-primary">Volver a Mis Órdenes</a>
+</div>
+{% endblock %}

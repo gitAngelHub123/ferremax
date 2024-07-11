@@ -1,0 +1,13 @@
+{% extends 'app/base.html' %}
+{% load crispy_forms_tags %}
+{% block contenido %}
+<div class="container mt-5">
+    <h2>Reportar un Fallo</h2>
+    <form method="post" enctype="multipart/form-data" class="form">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <br>
+        <button type="submit" class="btn btn-primary">Reportar Fallo</button>
+    </form>
+</div>
+{% endblock %}

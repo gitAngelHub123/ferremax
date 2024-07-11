@@ -1,0 +1,37 @@
+{% extends "app/base.html" %}
+
+{% block contenido %}
+<br>
+<br>
+<div class="container">
+    <header class="my-4">
+        <h1 style="color: #eedc76fb;" style=" text-align: center;">FerreMaX</h1>
+    </header>
+    <br>
+    <hr>
+    <h1>Productos Más Vendidos</h1>
+    <a href="{% url 'generate_most_sold_pdf' %}" class="btn btn-primary mb-4">Descargar Reporte en PDF</a>
+    {% if most_sold %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Total Vendido</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in most_sold %}
+            <tr>
+                <td>{{ item.product__Producto }}</td>
+                <td>{{ item.total_sold }}</td>
+                <td>${{ item.product__precio }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No hay productos vendidos aún.</p>
+    {% endif %}
+</div>
+{% endblock %}

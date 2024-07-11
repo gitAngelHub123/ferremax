@@ -1,0 +1,84 @@
+{% extends "app/base.html" %}
+
+{% block contenido %}
+<br>
+<br>
+<div class="container">
+    <header class="my-4">
+        <h1 style="color: #eedc76fb;" style="text-align: center;">FerreMaX</h1>
+    </header>
+    <br>
+    <h3>Lista de Todas las Órdenes</h3>
+    <hr>
+    <form method="get">
+        <input type="text" name="query" placeholder="Buscar por número de pedido" value="{{ request.GET.query }}">
+        <button type="submit">Buscar</button>
+    </form>
+    {% if orders %}
+        <table class="order-table">
+            <thead>
+                <tr>
+                    <th>Pedido #</th>
+                    <th>Usuario</th>
+                    <th>Fecha</th>
+                    <th>Total</th>
+                    <th>Dirección de Envío</th>
+                    <th>Detalle</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.order_number }}</td>
+                    <td>{{ order.user.username }}</td>
+                    <td>{{ order.created_at }}</td>
+                    <td>${{ order.total_price }}</td>
+                    <td>{{ order.direccion }}</td> <!-- Mostrar dirección -->
+                    <td>
+                        <a href="{% url 'order_detail' order.id %}">Ver Detalle</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No hay órdenes que coincidan con los criterios de búsqueda.</p>
+    {% endif %}
+
+<style>
+    .order-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: auto;
+    }
+    .order-table th, .order-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    .order-table th {
+        background-color: #f2f2f2;
+    }
+    .invoice-btn, .reorder-btn, .products-link {
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .invoice-btn {
+        background-color: #008CBA;
+        color: white;
+        display: block;
+        margin-bottom: 5px;
+    }
+    .reorder-btn {
+        background-color: #4CAF50;
+        color: white;
+        display: block;
+    }
+    .products-link {
+        color: #008CBA;
+        cursor: pointer;
+    }
+</style>
+{% endblock %}

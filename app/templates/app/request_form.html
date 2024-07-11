@@ -1,0 +1,14 @@
+{% extends 'app/base.html' %}
+{% block contenido %}
+<br>
+<br>
+<br><hr>
+<h2 class="card-title">Solicitud de Relleno de Stock para {{ producto.Producto }}</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        {{ form.as_p }}
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar Solicitud</button>
+</form>
+{% endblock %}

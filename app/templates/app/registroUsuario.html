@@ -1,0 +1,41 @@
+{% extends "app/base.html" %}
+{% load crispy_forms_tags %}
+{% block contenido %}
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<style>
+    .btn-custom {
+        background-color: yellow;
+        color: black;
+        border-color: yellow;
+    }
+    .btn-custom:hover {
+        background-color: gold;
+        border-color: gold;
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">Registro Cliente</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <br>
+                        <button type="submit" class="btn btn-custom btn-block">Registrarse</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

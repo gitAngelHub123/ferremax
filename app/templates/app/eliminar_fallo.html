@@ -1,0 +1,11 @@
+{% extends 'app/base.html' %}
+{% block contenido %}
+<div class="container mt-5">
+    <h2>¿Estás seguro de que quieres eliminar el fallo "{{ fallo.titulo }}"?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="{% url 'ver_fallos' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

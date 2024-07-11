@@ -1,0 +1,9 @@
+djangorestframework
+django-paypal
+paypalrestsdk
+paypal
+pillow
+reportlab
+matplotlib
+django-crispy-forms
+crispy-bootstrap4

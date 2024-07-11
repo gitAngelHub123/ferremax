@@ -1,0 +1,73 @@
+{% extends 'app/base.html' %}
+
+{% block contenido %}
+<br>
+<br>
+<br>
+<hr>
+{% if zero_stock_products %}
+<div id="zero-stock-notification" class="notification-overlay">
+    <div class="notification-content">
+        <h2>Hay algunos productos que tienen 0 stock. Solicita más.</h2>
+        <button id="ok-button" class="btn btn-primary">OK</button>
+    </div>
+</div>
+{% endif %}
+
+<h2 class="card-title">Lista de Inventario</h2>
+<a href="{% url 'inventory_pdf' %}" class="btn btn-success mb-4">Descargar Inventario PDF</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Stock</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for producto in productos %}
+            <tr>
+                <td>{{ producto.Producto }}</td>
+                <td>{{ producto.stock }}</td>
+                <td>
+                    <a href="{% url 'stock_request' producto.id %}" class="btn btn-primary btn-sm">Solicitar más stock</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<style>
+    .notification-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+    }
+
+    .notification-content {
+        background: white;
+        padding: 20px;
+        border-radius: 5px;
+        text-align: center;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var okButton = document.getElementById('ok-button');
+        if (okButton) {
+            okButton.addEventListener('click', function () {
+                var notification = document.getElementById('zero-stock-notification');
+                notification.style.display = 'none';
+            });
+        }
+    });
+</script>
+{% endblock %}

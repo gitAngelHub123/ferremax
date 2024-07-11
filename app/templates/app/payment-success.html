@@ -1,0 +1,80 @@
+{% extends "app/base.html" %}
+
+{% block contenido %}
+
+<br>
+<br>
+<div class="container">
+    <header class="my-4">
+        <h1 style="color: #eedc76fb;" style=" text-align: center;">FerreMaX</h1>
+    </header>
+    <br>
+    <hr>
+
+    <div class="payment-success-container">
+        <h1 class="success-title">¡Gracias! Pago Realizado</h1>
+        {% if user.is_authenticated %}
+            {% if user.tipo_de_cuenta == 'cliente' %}
+                <p class="card-text">Estimado {{ user.username }}, tu pago ha sido procesado exitosamente. </p>
+                <p>Procesaremos tu solicitud muy pronto la cual podrás retirar en cualquier sucursal.</p>
+            {% endif %}
+        {% endif %}
+
+        <div class="order-details">
+            <h2>Detalles del Pedido</h2>
+            <p><strong>Número de Pedido:</strong> {{ order.order_number }}</p>
+            <p><strong>Total:</strong> ${{ order.total_price }}</p>
+            <p><strong>Dirección de Envío:</strong> {{ order.direccion }}</p> <!-- Mostrar dirección -->
+            <h3>Artículos</h3>
+            <ul class="order-items">
+                {% for item in order.items.all %}
+                <li>{{ item.quantity }} x {{ item.product.Producto }} - ${{ item.price }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <br>
+        <br>
+        <a href="{% url 'home' %}" class="btn btn-primary">Home</a>
+        <a href="{% url 'product_list' %}" class="btn btn-primary">Seguir Comprando</a>
+    </div>
+
+    <style>
+        .payment-success-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .success-title {
+            color: #4CAF50;
+            text-align: center;
+        }
+        .card-text {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .order-details {
+            background-color: #fff;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .order-details h2, .order-details h3 {
+            color: #333;
+        }
+        .order-details p {
+            margin: 5px 0;
+        }
+        .order-items {
+            list-style: none;
+            padding: 0;
+        }
+        .order-items li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+{% endblock %}

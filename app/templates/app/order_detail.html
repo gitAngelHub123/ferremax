@@ -1,0 +1,56 @@
+{% extends "app/base.html" %}
+
+{% block contenido %}
+<br>
+<br>
+<div class="container2">
+    <header class="my-4">
+        <h1 style="color: #eedc76fb;" style="text-align: center;">FerreMaX</h1>
+    </header>
+    <br>
+    <h3>Detalle de la Orden</h3>
+    <hr>
+    <p><strong>Número de Pedido:</strong> {{ order.order_number }}</p>
+    <p><strong>Usuario:</strong> {{ order.user.username }}</p>
+    <p><strong>Fecha:</strong> {{ order.created_at }}</p>
+    <p><strong>Total:</strong> ${{ order.total_price }}</p>
+    <p><strong>Dirección de Envío:</strong> {{ order.direccion }}</p> <!-- Mostrar dirección -->
+    <h3>Artículos</h3>
+    <ul>
+        {% for item in order.items.all %}
+        <li>{{ item.quantity }} x {{ item.product.Producto }} - ${{ item.price }}</li>
+        {% endfor %}
+    </ul>
+</div>
+ 
+
+<br>
+<br>
+<style>
+    .container2 {
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+    }
+    .header {
+        text-align: center;
+    }
+    h3 {
+        color: #333;
+    }
+    p {
+        margin: 5px 0;
+    }
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+    ul li {
+        padding: 8px 0;
+        border-bottom: 1px solid #ddd;
+    }
+</style>
+{% endblock %}

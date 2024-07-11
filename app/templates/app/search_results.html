@@ -1,0 +1,11 @@
+<!-- search_results.html -->
+{% extends 'app/base.html' %}
+{% block content %}
+<h2>Resultados de la búsqueda para "{{ query }}"</h2>
+
+{% else %}
+<p>No se encontraron resultados.</p>
+{% endif %}
+{% endblock %}
+
+

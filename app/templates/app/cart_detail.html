@@ -1,0 +1,126 @@
+{% extends "app/base.html" %}
+
+{% load humanize %}
+{% load static %}
+
+{% block contenido %}
+<br>
+<br>
+<div class="container">
+    <header class="my-4">
+        <h1 style="color: #eedc76fb;" style=" text-align: center;">FerreMaX</h1>
+    </header>
+    <br>
+    <br>
+    <div class="container">
+        <br>
+        <hr>
+<h1>Carrito</h1>
+<!-- cart_detail.html -->
+<div class="cart-container">
+    <table class="cart-table">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Imagen</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Total</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td>{{ item.product.Producto }}</td>
+                <td><img src="{{ item.product.imagen.url }}" alt="{{ item.product.Producto }}" class="product-image"></td>
+                <td>
+                    {{ item.quantity }}
+                </td>
+                <td>${{ item.product.precio }}</td>
+                <td>${{ item.get_total_price }}</td>
+                <td>
+                    <form action="{% url 'remove_from_cart' item.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="delete-btn">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="4" class="total-label">Total</td>
+                <td colspan="2" class="total-price">${{ total_price }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="action-buttons">
+        <form action="{% url 'process_payment' %}" method="post" class="payment-form">
+            {% csrf_token %}
+            <button type="submit" class="paypal-btn">Pagar con PayPal</button>
+        </form>
+        <a class="continue-shopping-btn" href="{% url 'product_list' %}">Seguir Comprando</a>
+    </div>
+</div>
+
+<style>
+    .cart-container {
+        width: 80%;
+        margin: auto;
+    }
+    .cart-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .cart-table th, .cart-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+    .product-image {
+        width: 50px;
+        height: auto;
+    }
+    .update-btn, .delete-btn, .paypal-btn, .continue-shopping-btn {
+        padding: 15px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+        text-align: center;
+    }
+    .update-btn {
+        background-color: #4CAF50;
+        color: white;
+    }
+    .delete-btn {
+        background-color: #f44336;
+        color: white;
+    }
+    .paypal-btn {
+        background-color: #ffc439;
+        color: black;
+    }
+    .continue-shopping-btn {
+        background-color: #007bff; /* Color azul */
+        color: white;
+        display: block;
+        text-decoration: none;
+        margin-top: 15px;
+    }
+    .continue-shopping-btn:hover {
+        background-color: #0056b3; /* Color azul más oscuro al pasar el mouse */
+    }
+    .total-label {
+        text-align: right;
+    }
+    .total-price {
+        text-align: center;
+        font-weight: bold;
+    }
+    .action-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 20px;
+    }
+</style>
+{% endblock %}
